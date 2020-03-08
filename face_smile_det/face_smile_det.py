@@ -9,14 +9,22 @@ smile_cascade = cv2.CascadeClassifier('C:\\Users\\vegar\\Desktop\\NTNU\\Elsys\\v
 
 
 def detect(gray, frame): 
+    
     faces = face_cascade.detectMultiScale(gray, 1.3, 5) 
     for (x, y, w, h) in faces: 
+
         cv2.rectangle(frame, (x, y), ((x + w), (y + h)), (255, 0, 0), 2) 
         roi_gray = gray[y:y + h, x:x + w] 
         roi_color = frame[y:y + h, x:x + w] 
         smiles = smile_cascade.detectMultiScale(roi_gray, 1.8, 20) 
+        if smiles != ():
+            
+            print('Nice smile')
+        else:
+            print('\n')
   
         for (sx, sy, sw, sh) in smiles: 
+            
             cv2.rectangle(roi_color, (sx, sy), ((sx + sw), (sy + sh)), (0, 0, 255), 2) 
     return frame
 
